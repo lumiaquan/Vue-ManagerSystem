@@ -4,6 +4,7 @@ import Home from '../App'
 import AddContainer from "../components/AddContainer.vue"
 import SearchContainer from "../components/SearchContainer.vue"
 import ChargeContainer from "../components/ChargeContainer.vue"
+import Addzhangjie from '../components/Addzhangjie.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -19,6 +20,10 @@ const routes = [
   {
     path: '/search',
     component: SearchContainer
+  },
+  {
+    path: '/addzhangjie',
+    component: Addzhangjie
   }
 ]
 

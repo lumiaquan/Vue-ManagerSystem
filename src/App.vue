@@ -15,6 +15,10 @@
                           <i class="el-icon-menu"></i>
                           <span slot="title">添加题目</span>
                       </el-menu-item>
+                      <el-menu-item index="addzhangjie">
+                          <i class="el-icon-menu"></i>
+                          <span slot="title">章节管理</span>
+                      </el-menu-item>
                       <el-menu-item index="charge">
                           <i class="el-icon-setting"></i>
                           <span slot="title">管理题目</span>

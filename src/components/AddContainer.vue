@@ -10,10 +10,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="加入题库">
-        <el-radio v-model="form.tiku" label="gaoshu">高数</el-radio>
-        <el-radio v-model="form.tiku" label="yingyu">英语</el-radio>
-        <el-radio v-model="form.tiku" label="zhengzhi">政治</el-radio>
-        <el-radio v-model="form.tiku" label="tongyong">通用</el-radio>
+        <el-radio v-model="form.tiku" label="高数">高数</el-radio>
+        <el-radio v-model="form.tiku" label="英语">英语</el-radio>
+        <el-radio v-model="form.tiku" label="政治">政治</el-radio>
+        <el-radio v-model="form.tiku" label="通用">通用</el-radio>
+      </el-form-item>
+      <el-form-item label="主题">
+        <el-input type="textarea" v-model="form.zhuti"></el-input>
       </el-form-item>
       <el-form-item label="章节">
         <el-input type="textarea" v-model="form.zhangjie"></el-input>
@@ -25,15 +28,15 @@
         <div class="xuanzeti">
           <div class="sub-answer1">
             <label>A</label>
-            <input type="textarea" v-model="form.choicesanswer.A"/>
+            <input type="textarea" v-model="form.A"/>
             <label>B</label>
-            <input type="textarea" v-model="form.choicesanswer.B"/>
+            <input type="textarea" v-model="form.B"/>
           </div>
           <div class="sub-answer2">
             <label>C</label>
-            <input type="textarea" v-model="form.choicesanswer.C"/>
+            <input type="textarea" v-model="form.C"/>
             <label>D</label>
-            <input type="textarea" v-model="form.choicesanswer.D"/>
+            <input type="textarea" v-model="form.D"/>
           </div>
         </div>
       </el-form-item>
@@ -66,7 +69,7 @@
       <el-form-item label="相关图片">
         <el-upload
           class="avatar-uploader"
-          action="http://118.178.196.114:3000/image"
+          action="https://118.178.196.114:8081/image"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
@@ -90,15 +93,15 @@ export default {
       form: {
         tiku: "",
         tixing: "",
+        zhuti: "",
+        number: "",
         zhangjie: "",
         content: "",
         imageUrl: "",
-        choicesanswer: {
-          A: "",
-          B: "",
-          C: "",
-          D: ""
-        },
+        A: "",
+        B: "",
+        C: "",
+        D: "",
         judgementanswer: "",
         jiandaanswer: "",
         rightchoice: "",
@@ -110,53 +113,25 @@ export default {
   },
   methods: {
     onSubmit() {
-      var answer = {}
-      if(this.form.choicesanswer.A != ""){
-        if(this.form.rightchoice !=""){
-          answer = {
-            choicesAnswer: this.form.choicesanswer,
-            rightChoice: this.form.rightchoice
-          }
-        }else{
-          answer = {
-            choicesAnswer: this.form.choicesanswer,
-            rightChoices: this.form.rightchoices
-          }
-        }
-      }else if(this.form.judgementanswer != ""){
-        answer = {
-          judgementAnswer: this.form.judgementanswer
-        }
-      }else if(this.form.jiandaanswer != ""){
-        answer = {
-          jiandaAnswer: this.form.jiandaanswer
-        }
-      }
-
-      this.$api.addQuestion({
-        "tixing": this.form.tixing,
-        "tiku": this.form.tiku,
-        "zhangjie": this.form.zhangjie,
-        "content": this.form.content,
-        "imageUrl": this.form.imageUrl,
-        "amswer": answer,
-        "jiexi": this.form.jiexi 
-      }).then(res => {
+      this.$api.addQuestion(this.form).then(res => {
         if (res.status == 200) {
           alert("添加成功！");
           this.form.tiku = "";
           this.form.tixing = "";
+          this.form.zhuti = "";
+          this.form.number = "";
           this.form.content = "";
           this.form.imageUrl = "";
-          this.form.choicesanswer.A = "";
-          this.form.choicesanswer.B = "";
-          this.form.choicesanswer.C = "";
-          this.form.choicesanswer.D = "";
+          this.form.A = "";
+          this.form.B = "";
+          this.form.C = "";
+          this.form.D = "";
           this.form.rightchoice = "";
           this.form.rightchoices = [];
           this.form.judgementanswer = "";
           this.form.jiandaanswer = "";
-          this.form.jiexi = ""
+          this.form.jiexi = "",
+          this.form.zhangjie = ""
         }else{
           alert('添加失败！')
         }

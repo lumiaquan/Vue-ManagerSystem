@@ -9,6 +9,11 @@ const instance = axios.create({
  
 export default {
   addQuestion ( data ) {
-    return instance.post('http://118.178.196.114:8081/add', data);
+    return instance.post('https://118.178.196.114:8081/add', data);
+    // return instance.post('http://127.0.0.1:8081/add', data);
+  },
+  addZhangjie ( data ) {
+    return instance.post('https://118.178.196.114:8081/addzhangjie', data);
+    // return instance.post('http://127.0.0.1:8081/addzhangjie', data);
   }
 };
